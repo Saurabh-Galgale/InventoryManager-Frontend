@@ -38,12 +38,12 @@ const Product = () => {
   })
 
   let submit = async () => {
-    if (formData.name == "" ||
-      formData.category == "" ||
-      formData.quantity == "" ||
-      formData.price == "" ||
+    if (formData.name == "" &&
+      formData.category == "" &&
+      formData.quantity == "" &&
+      formData.price == "" &&
       formData.description == "") {
-      alert("Missing credentials")
+      alert("No changes detected")
       return;
     }
 
@@ -56,7 +56,7 @@ const Product = () => {
       image: formData.image
     };
     axios.post(
-      'https://inventorymanager-od9f.onrender.com/api/update',
+      `https://inventorymanager-od9f.onrender.com/api/product/${productId.product}`,
       body,
       {
         headers: {
@@ -64,7 +64,7 @@ const Product = () => {
         }
       }
     ).then((x) => {
-      console.log(x);
+      alert("successfuly changed");
     })
       .catch((x) => {
         alert("Something went wrong! Try again");
@@ -89,7 +89,7 @@ const Product = () => {
       <Box
         sx={{
           bgcolor: "primary.light",
-          width: { sm: "55%", md: "60%", lg: "40%", xs: "85%" },
+          width: { sm: "55%", md: "60%", lg: "45%", xs: "80%" },
           height: "fit-content",
           margin: "auto auto",
           borderRadius: 3
@@ -126,53 +126,60 @@ const Product = () => {
               onChange={(e) => handleFormDataChange(e)}
               value={formData.email}
             />
-            </Stack>
+          </Stack>
 
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant='h6' color="third.dark">Quantity</Typography>
-              <TextField
-                label={product && product.quantity}
-                name='quantity'
-                color='third'
-                fullWidth
-                InputLabelProps={{ style: { fontSize: 20 } }}
-                variant='outlined'
-                onChange={(e) => handleFormDataChange(e)}
-                value={formData.password}
-              />
-              </Stack>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant='h6' color="third.dark">Quantity</Typography>
+            <TextField
+              label={product && product.quantity}
+              name='quantity'
+              color='third'
+              fullWidth
+              InputLabelProps={{ style: { fontSize: 20 } }}
+              variant='outlined'
+              onChange={(e) => handleFormDataChange(e)}
+              value={formData.password}
+            />
+          </Stack>
 
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant='h6' color="third.dark">Price</Typography>
+            <TextField
+              label={product && product.price}
+              name='price'
+              color='third'
+              fullWidth
+              InputLabelProps={{ style: { fontSize: 20 } }}
+              variant='outlined'
+              onChange={(e) => handleFormDataChange(e)}
+              value={formData.orgName}
+            /></Stack>
 
-              <TextField
-                label={product && product.price}
-                name='price'
-                color='third'
-                fullWidth
-                variant='outlined'
-                onChange={(e) => handleFormDataChange(e)}
-                value={formData.orgName}
-              />
-              <TextField
-                label={product && product.description}
-                name='description'
-                color='third'
-                fullWidth
-                variant='outlined'
-                onChange={(e) => handleFormDataChange(e)}
-                value={formData.goal}
-              />
-              <Button variant='contained' fullWidth color='secondary' onClick={submit}>
-                Save changes
-              </Button>
-              <Button variant='text' component={Link} to='/dash'>
-                <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
-                  Check out Inventory
-                </Typography>
-              </Button>
-            </Stack>
-          </Box>
-        </LayoutWrapper>
-        )
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant='h6' color="third.dark">Description</Typography>
+            <TextField
+              label={product && product.description}
+              name='description'
+              color='third'
+              fullWidth
+              InputLabelProps={{ style: { fontSize: 20 } }}
+              variant='outlined'
+              onChange={(e) => handleFormDataChange(e)}
+              value={formData.goal}
+            /></Stack>
+
+          <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+            <Typography variant='h4'>Save changes</Typography>
+          </Button>
+          <Button variant='text' component={Link} to='/dash'>
+            <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
+              Check out Inventory
+            </Typography>
+          </Button>
+        </Stack>
+      </Box>
+    </LayoutWrapper>
+  )
 }
 
-        export default Product;
+export default Product;

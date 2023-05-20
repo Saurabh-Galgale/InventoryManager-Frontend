@@ -21,7 +21,7 @@ const LandingPage = () => {
                         <Button color="secondary" variant='outlined' size='large' sx={{ padding: "20px" }} to="/register">
                             <Typography variant='h4'>Register</Typography></Button>
                     </Link>
-                    <Link to="/register">
+                    <Link to="/login">
                         <Button color="secondary" variant='outlined' size='large' sx={{ padding: "20px" }} to="/login">
                             <Typography variant='h4'>Login</Typography></Button>
                     </Link>

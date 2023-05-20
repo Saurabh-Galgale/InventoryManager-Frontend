@@ -68,7 +68,7 @@ let AddProduct = () => {
             <Box
                 sx={{
                     bgcolor: "primary.light",
-                    width: { sm: "55%", md: "50%", lg: "40%", xs: "85%" },
+                    width: { sm: "55%", md: "50%", lg: "50%", xs: "85%" },
                     height: "fit-content",
                     margin: "auto auto",
                     borderRadius: 3
@@ -81,6 +81,7 @@ let AddProduct = () => {
                         label='Name'
                         name='name'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         size='large'
                         color='third'
                         variant='outlined'
@@ -92,6 +93,7 @@ let AddProduct = () => {
                         name='category'
                         color='third'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         variant='outlined'
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.email}
@@ -101,6 +103,7 @@ let AddProduct = () => {
                         name='quantity'
                         color='third'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         variant='outlined'
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.password}
@@ -110,6 +113,7 @@ let AddProduct = () => {
                         name='price'
                         color='third'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         variant='outlined'
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.orgName}
@@ -119,6 +123,7 @@ let AddProduct = () => {
                         name='description'
                         color='third'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         variant='outlined'
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.goal}
@@ -128,12 +133,13 @@ let AddProduct = () => {
                         name='image'
                         color='third'
                         fullWidth
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                         variant='outlined'
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.slogan}
                     />
-                    <Button variant='contained' fullWidth color='secondary' onClick={submit}>
-                        Add to inventory
+                    <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+                        <Typography variant="h4">Add to inventory</Typography>
                     </Button>
                     <Button variant='text' component={Link} to='/dash'>
                         <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>

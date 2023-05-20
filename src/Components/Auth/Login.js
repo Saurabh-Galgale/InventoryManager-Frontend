@@ -29,7 +29,7 @@ let Register = () => {
             body
         ).then((x) => {
             localStorage.setItem("token", x.data.data.token)
-            // navigate("/dash/");
+            navigate("/dash/");
         })
             .catch((x) => {
                 alert("Something went wrong! Try again");
@@ -80,8 +80,8 @@ let Register = () => {
                     onChange={(e) => handleFormDataChange(e)}
                     value={formData.password}
                 />
-                <Button variant='contained' fullWidth color='secondary' onClick={submit}>
-                    <Typography variant="h5">Login</Typography>
+                <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+                    <Typography variant="h4">Login</Typography>
                 </Button>
                 <Button variant='text' component={Link} to='/register'>
                     <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>

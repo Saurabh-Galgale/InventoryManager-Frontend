@@ -92,8 +92,8 @@ let Register = () => {
                     onChange={(e) => handleFormDataChange(e)}
                     value={formData.password}
                 />
-                <Button color="secondary" variant='contained' fullWidth onClick={submit}>
-                    <Typography variant="h5">Register</Typography>
+                <Button color="secondary" variant='outlined' fullWidth onClick={submit}>
+                    <Typography variant="h4">Register</Typography>
                 </Button>
                 <Button variant='text' component={Link} to='/login'>
                     <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>

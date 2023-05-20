@@ -6,9 +6,9 @@ const Authorization = ({ children }) => {
 
     const item = localStorage.getItem("token");
 
-    // if (item == null || item == undefined || !item) {
-    //     return <Navigate to="/login" replace />;
-    // }
+    if (item == null || item == undefined || !item) {
+        return <Navigate to="/login" replace />;
+    }
 
     return <Outlet />;
 }

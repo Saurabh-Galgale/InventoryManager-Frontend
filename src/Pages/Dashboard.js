@@ -12,7 +12,7 @@ import { addProduct } from '../Redux/productSlice';
 
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.third.dark,
+  backgroundColor: theme.palette.third.main,
   ...theme.typography.body2,
   padding: 10,
   margin: 10,
@@ -57,9 +57,11 @@ const Dashboard = () => {
         {products && products.map((item) => {
           return (<Grid item xs={4} key={item._id}>
             <Item onClick={() => productHandler(item._id)}>
-              <Typography variant="h5">Name: {item.name}</Typography>
+              <Typography variant="h4" color="secondary.dark">Name: {item.name}</Typography>
+              <Typography variant="h4">Quantity: {item.quantity}</Typography>
               <Typography variant="h5">Price: {item.price}</Typography>
-              <Typography variant="h5">Quantity: {item.quantity}</Typography>
+              <Typography variant="h5">Category: {item.category}</Typography>
+              <Typography variant="h5">Description: {item.description}</Typography>
               <Typography variant="h5">Updated: {item.updatedAt}</Typography>
             </Item>
           </Grid>)

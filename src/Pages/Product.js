@@ -5,14 +5,17 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { LoadingButton } from '@mui/lab'
 
 const Product = () => {
   let productId = useSelector((state) => state.product);
   const navigate = useNavigate();
   const [product, setProduct] = useState();
+  const [loading, setLoading] = useState(false);
   let Token = localStorage.getItem("token");
 
   let onLoadFn = () => {
+    setLoading(true);
     axios.get(
       `https://inventorymanager-od9f.onrender.com/api/product/${productId.product}`,
       {
@@ -21,9 +24,11 @@ const Product = () => {
         }
       }
     ).then((x) => {
+      setLoading(false);
       setProduct(x.data);
     })
       .catch((x) => {
+        setLoading(false);
         alert("Something went wrong! Load again");
       });
   }
@@ -38,11 +43,13 @@ const Product = () => {
   })
 
   let submit = async () => {
+    setLoading(true);
     if (formData.name == "" &&
       formData.category == "" &&
       formData.quantity == "" &&
       formData.price == "" &&
       formData.description == "") {
+      setLoading(false);
       alert("No changes detected")
       return;
     }
@@ -64,9 +71,12 @@ const Product = () => {
         }
       }
     ).then((x) => {
+      setLoading(false);
       alert("successfuly changed");
+      navigate("/dash/")
     })
       .catch((x) => {
+        setLoading(false);
         alert("Something went wrong! Try again");
       });
   }
@@ -168,9 +178,9 @@ const Product = () => {
               value={formData.goal}
             /></Stack>
 
-          <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+          <LoadingButton variant='outlined' loading={loading} fullWidth color='secondary' onClick={submit}>
             <Typography variant='h4'>Save changes</Typography>
-          </Button>
+          </LoadingButton>
           <Button variant='text' component={Link} to='/dash'>
             <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
               Check out Inventory

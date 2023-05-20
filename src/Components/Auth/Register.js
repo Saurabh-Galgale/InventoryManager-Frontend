@@ -4,10 +4,12 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Logo from "../../Assets/logo.svg";
+import { LoadingButton } from "@mui/lab";
 
 
 let Register = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -15,9 +17,11 @@ let Register = () => {
     })
 
     let submit = async () => {
+        setLoading(true);
         if (formData.name == "" ||
             formData.email == "" ||
             formData.password == "") {
+            setLoading(false);
             alert("Missing credentials");
             return;
         }
@@ -31,9 +35,11 @@ let Register = () => {
             'https://inventorymanager-od9f.onrender.com/api/register',
             body
         ).then((x) => {
+            setLoading(false);
             navigate("/login");
         })
             .catch((x) => {
+                setLoading(false);
                 alert("Something went wrong! Try again");
             });
     }
@@ -92,9 +98,9 @@ let Register = () => {
                     onChange={(e) => handleFormDataChange(e)}
                     value={formData.password}
                 />
-                <Button color="secondary" variant='outlined' fullWidth onClick={submit}>
+                <LoadingButton color="secondary" loading={loading} variant='outlined' fullWidth onClick={submit}>
                     <Typography variant="h4">Register</Typography>
-                </Button>
+                </LoadingButton>
                 <Button variant='text' component={Link} to='/login'>
                     <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
                         Already have an account? Login

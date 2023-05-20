@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import LayoutWrapper from "./LayoutWrapper";
 import MenuList from "../Pages/MenuList";
+import { LoadingButton } from "@mui/lab";
 
 
 let AddProduct = () => {
     const navigate = useNavigate();
     let Token = localStorage.getItem("token");
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         category: "",
@@ -20,11 +22,13 @@ let AddProduct = () => {
     })
 
     let submit = async () => {
+        setLoading(true);
         if (formData.name == "" ||
             formData.category == "" ||
             formData.quantity == "" ||
             formData.price == "" ||
             formData.description == "") {
+            setLoading(false);
             alert("Missing credentials")
             return;
         }
@@ -46,9 +50,11 @@ let AddProduct = () => {
                 }
             }
         ).then((x) => {
-            console.log(x);
+            setLoading(false);
+            navigate("/dash/")
         })
             .catch((x) => {
+                setLoading(false);
                 alert("Something went wrong! Try again");
             });
     }
@@ -138,9 +144,9 @@ let AddProduct = () => {
                         onChange={(e) => handleFormDataChange(e)}
                         value={formData.slogan}
                     />
-                    <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+                    <LoadingButton variant='outlined' loading={loading} fullWidth color='secondary' onClick={submit}>
                         <Typography variant="h4">Add to inventory</Typography>
-                    </Button>
+                    </LoadingButton>
                     <Button variant='text' component={Link} to='/dash'>
                         <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
                             Check out Inventory

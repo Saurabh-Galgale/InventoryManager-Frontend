@@ -1,22 +1,24 @@
-import { Box, Button, Divider, FormControlLabel, Stack, TextField, Typography } from "@mui/material"
+import { Box, Button, Divider, FormControlLabel, Stack, Switch, TextField, Typography } from "@mui/material"
 import axios from "axios"
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Logo from "../../Assets/logo.svg";
+import LoadingButton from '@mui/lab/LoadingButton';
 
-
-let Register = () => {
+let Login = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
 
     let submit = async () => {
+        setLoading(true);
         if (formData.email == "" ||
             formData.password == "") {
             alert("Missing credentials")
+            setLoading(false);
             return;
         }
 
@@ -28,12 +30,34 @@ let Register = () => {
             'https://inventorymanager-od9f.onrender.com/api/login',
             body
         ).then((x) => {
+            setLoading(false);
             localStorage.setItem("token", x.data.data.token)
             navigate("/dash/");
         })
             .catch((x) => {
+                setLoading(false);
                 alert("Something went wrong! Try again");
             });
+    }
+
+    const guestFn = (e) => {
+        if (e.target.checked) {
+            setFormData((form) => {
+                return {
+                    ...form,
+                    ["email"]: "guestadmin@gmail.com",
+                    ["password"]: "12345678"
+                }
+            })
+        } else {
+            setFormData((form) => {
+                return {
+                    ...form,
+                    ["email"]: "",
+                    ["password"]: ""
+                }
+            })
+        }
     }
 
     let handleFormDataChange = (e) => {
@@ -67,6 +91,7 @@ let Register = () => {
                     name='email'
                     color='third'
                     fullWidth
+                    InputLabelProps={{ style: { fontSize: 20 } }}
                     variant='outlined'
                     onChange={(e) => handleFormDataChange(e)}
                     value={formData.email}
@@ -76,13 +101,21 @@ let Register = () => {
                     name='password'
                     color='third'
                     fullWidth
+                    InputLabelProps={{ style: { fontSize: 20 } }}
                     variant='outlined'
                     onChange={(e) => handleFormDataChange(e)}
                     value={formData.password}
                 />
-                <Button variant='outlined' fullWidth color='secondary' onClick={submit}>
+                <FormControlLabel
+                    value='start'
+                    control={<Switch color='third' />}
+                    label='Guest login'
+                    labelPlacement='start'
+                    onChange={(e) => guestFn(e)}
+                />
+                <LoadingButton variant='outlined' loading={loading} fullWidth color='secondary' onClick={submit}>
                     <Typography variant="h4">Login</Typography>
-                </Button>
+                </LoadingButton>
                 <Button variant='text' component={Link} to='/register'>
                     <Typography variant="h5" color='third.dark' sx={{ textTransform: "none" }}>
                         Don't have an account? Register
@@ -93,4 +126,4 @@ let Register = () => {
     )
 }
 
-export default Register;
+export default Login;

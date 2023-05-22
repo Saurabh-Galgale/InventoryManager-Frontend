@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton"
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useNavigate } from "react-router-dom"
 import Logo from "../Assets/logo.svg"
-import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 250
 
 const LayoutWrapper = (props) => {
@@ -17,16 +16,6 @@ const LayoutWrapper = (props) => {
 
 	const handleDrawerToggle = (e) => {
 		setMobileOpen(!mobileOpen)
-	}
-
-	const handleLogout = () => {
-		let userChoise = window.confirm("Do you really want to logout?")
-		if (userChoise) {
-			localStorage.clear("token");
-			navigate("/")
-		} else {
-			return;
-		}
 	}
 
 	const drawer = (
@@ -61,8 +50,6 @@ const LayoutWrapper = (props) => {
 						</Button>
 					)
 				})}
-
-				<Button startIcon={<LogoutIcon />} onClick={handleLogout} sx={{marginLeft: 10}}>Logout</Button>
 				<Typography variant='h6' sx={{ position: "absolute", bottom: "1rem" }} color='third.main'>
 					Copyright © 2023 Inventory Manager, <br></br>Inc. All rights reserved.
 				</Typography>

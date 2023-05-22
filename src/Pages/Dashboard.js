@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import LayoutWrapper from '../Components/LayoutWrapper'
 import MenuList from './MenuList'
-import { Grid, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles';
+import { Button, Grid, Typography } from '@mui/material'
 import Paper from '@mui/material/Paper';
-import Product from './Product';
+import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../Redux/productSlice';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.third.main,
@@ -21,9 +26,52 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.secondary,
 }));
 
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.black, 0.25),
+  },
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
 const Dashboard = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   const [products, setProducts] = useState();
   const [loading, setLoading] = useState(false);
   let Token = localStorage.getItem("token");
@@ -52,16 +100,50 @@ const Dashboard = () => {
     navigate('/dash/product');
   }
 
+  const handleLogout = () => {
+		let userChoise = window.confirm("Do you really want to logout?")
+		if (userChoise) {
+			localStorage.clear("token");
+			navigate("/")
+		} else {
+			return;
+		}
+	}
+
   useEffect(() => {
     onLoadFn();
   }, [])
 
   return (
     <LayoutWrapper menuList={MenuList}>
+
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" color="transparent" sx={{ display: "flex", alignItems: "flex-end" }}>
+          <Toolbar>
+
+          <Button color='third' variant='contained' startIcon={<LogoutIcon />} onClick={handleLogout} sx={{marginLeft: 10}}>Logout</Button>
+
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Product..."
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       {!loading ?
         (<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {products && products.map((item) => {
-            return (<Grid item xs={4} key={item._id}>
+          {products && products.filter((item) => {
+            return search.toString().toLowerCase() === "" ? item
+              : item.name.toString().toLowerCase().includes(search);
+          }).map((item) => {
+            return (<Grid item sm={6} xs={12} lg={4} key={item._id}>
               <Item onClick={() => productHandler(item._id)}>
                 <Typography variant="h4" color="secondary.dark">Name: {item.name}</Typography>
                 <Typography variant="h4">Quantity: {item.quantity}</Typography>

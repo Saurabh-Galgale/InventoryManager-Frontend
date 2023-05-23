@@ -4,6 +4,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+    const item = localStorage.getItem("token");
     return (
         <>
             <Stack alignItems="center" justifyContent="center" margin={2}>
@@ -23,6 +24,11 @@ const LandingPage = () => {
                             <Typography variant='h4'>Register</Typography>
                         </Button>
                     </Link>
+                    {item && <Link to="/dash/">
+                        <Button color="secondary" variant='outlined' size='large' sx={{ padding: "20px" }}>
+                            <Typography variant='h4'>Dashboard</Typography>
+                        </Button>
+                    </Link>}
                     <Link to="/login">
                         <Button color="secondary" variant='outlined' size='large' sx={{ padding: "20px" }}>
                             <Typography variant='h4'>Login</Typography>

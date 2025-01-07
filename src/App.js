@@ -7,6 +7,7 @@ import LandingPage from "./Pages/LandingPage";
 import Dashboard from "./Pages/Dashboard";
 import Product from "./Pages/Product";
 import AddProduct from "./Components/AddProduct";
+import InventoryDetails from "./Pages/InventoryDetails";
 
 const App = () => {
   // let dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/dash/" element={<Dashboard />} />
             <Route path="/dash/addproduct" element={<AddProduct />} />
             <Route path="/dash/product" element={<Product />} />
+            <Route path="/dash/inventory" element={<InventoryDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

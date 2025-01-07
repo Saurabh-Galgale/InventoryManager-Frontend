@@ -1,14 +1,6 @@
 import React from "react";
 import Logo from "../Assets/logo.svg";
-import {
-  Box,
-  Button,
-  Divider,
-  Stack,
-  Typography,
-  Alert,
-  AlertTitle,
-} from "@mui/material";
+import { Box, Button, Divider, Stack, Typography, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -72,18 +64,13 @@ const LandingPage = () => {
           style={{ width: "80%" }}
           sx={{ borderBottomWidth: 8, bgcolor: "third.dark", margin: 4 }}
         />
-        <Stack
-          direction="row"
-          flexWrap="wrap"
-          justifyContent="center"
-          spacing={10}
-        >
+        <Stack direction="row" flexWrap="wrap" justifyContent="center">
           <Link to="/register">
             <Button
               color="secondary"
               variant="outlined"
               size="medium"
-              sx={{ padding: "8px" }}
+              sx={{ padding: "8px", mx: 2 }}
             >
               <Typography variant="h4">Register</Typography>
             </Button>
@@ -94,7 +81,7 @@ const LandingPage = () => {
                 color="secondary"
                 variant="outlined"
                 size="medium"
-                sx={{ padding: "8px" }}
+                sx={{ padding: "8px", mx: 2 }}
               >
                 <Typography variant="h4">Dashboard</Typography>
               </Button>
@@ -105,7 +92,7 @@ const LandingPage = () => {
               color="secondary"
               variant="outlined"
               size="medium"
-              sx={{ padding: "8px" }}
+              sx={{ padding: "8px", mx: 2 }}
             >
               <Typography variant="h4">Login</Typography>
             </Button>

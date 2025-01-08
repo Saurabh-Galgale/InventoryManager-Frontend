@@ -3,7 +3,6 @@ import LayoutWrapper from "../Components/LayoutWrapper";
 import MenuList from "./MenuList";
 import { Button, Grid, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +24,15 @@ import {
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.third.main,
+  ...theme.typography.body2,
+  padding: 10,
+  margin: 10,
+  textAlign: "center",
+  color: theme.palette.secondary,
+}));
+
+const Item1 = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.dark,
   ...theme.typography.body2,
   padding: 10,
   margin: 10,
@@ -60,6 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -80,12 +89,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   let Token = localStorage.getItem("token");
 
-  const totalProducts = useSelector((state) => state.product.totalProducts);
-  const totalValue = useSelector((state) => state.product.totalStoreValue);
-  const outOfStock = useSelector((state) => state.product.outOfStock);
-  const category = useSelector((state) => state.product.category);
-
-  const onLoadFn = () => {
+  let onLoadFn = () => {
     setLoading(true);
     axios
       .get("https://inventorymanager-od9f.onrender.com/api/products", {
@@ -105,6 +109,11 @@ const Dashboard = () => {
         alert("Something went wrong! Load again");
         setLoading(false);
       });
+  };
+
+  let productHandler = (id) => {
+    dispatch(ADDPRODUCT(id));
+    navigate("/dash/product");
   };
 
   useEffect(() => {
@@ -138,36 +147,38 @@ const Dashboard = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {products &&
             products
-              .filter((item) =>
-                search.toLowerCase() === ""
+              .filter((item) => {
+                return search.toString().toLowerCase() === ""
                   ? item
-                  : item.name.toLowerCase().includes(search)
-              )
-              .map((item) => (
-                <Grid item sm={6} xs={12} lg={4} key={item._id}>
-                  <Item onClick={() => navigate(`/dash/product/${item._id}`)}>
-                    <Typography variant="h4" color="secondary.dark">
-                      Name: {item.name}
-                    </Typography>
-                    <Typography variant="h4">
-                      Quantity: {item.quantity}
-                    </Typography>
-                    <Typography variant="h5">Price: {item.price}</Typography>
-                    <Typography variant="h5">
-                      Total price: {item.price * item.quantity}
-                    </Typography>
-                    <Typography variant="h5">
-                      Category: {item.category}
-                    </Typography>
-                    <Typography variant="h5">
-                      Description: {item.description}
-                    </Typography>
-                    <Typography variant="h5">
-                      Updated: {item.updatedAt}
-                    </Typography>
-                  </Item>
-                </Grid>
-              ))}
+                  : item.name.toString().toLowerCase().includes(search);
+              })
+              .map((item) => {
+                return (
+                  <Grid item sm={6} xs={12} lg={4} key={item._id}>
+                    <Item onClick={() => productHandler(item._id)}>
+                      <Typography variant="h4" color="secondary.dark">
+                        Name: {item.name}
+                      </Typography>
+                      <Typography variant="h4">
+                        Quantity: {item.quantity}
+                      </Typography>
+                      <Typography variant="h5">Price: {item.price}</Typography>
+                      <Typography variant="h5">
+                        Total price: {item.price * item.quantity}
+                      </Typography>
+                      <Typography variant="h5">
+                        Category: {item.category}
+                      </Typography>
+                      <Typography variant="h5">
+                        Description: {item.description}
+                      </Typography>
+                      <Typography variant="h5">
+                        Updated: {item.updatedAt}
+                      </Typography>
+                    </Item>
+                  </Grid>
+                );
+              })}
         </Grid>
       ) : (
         <Stack

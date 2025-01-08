@@ -20,10 +20,11 @@ import {
 } from "../Redux/productSlice";
 
 const Item1 = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.dark,
+  backgroundColor: theme.palette.third.main,
   ...theme.typography.body2,
   padding: 10,
   margin: 10,
+  height: "100vh",
   textAlign: "center",
   color: theme.palette.secondary,
 }));

@@ -107,14 +107,6 @@ const Dashboard = () => {
       });
   };
 
-  const handleLogout = () => {
-    let userChoice = window.confirm("Do you really want to logout?");
-    if (userChoice) {
-      localStorage.clear("token");
-      navigate("/");
-    }
-  };
-
   useEffect(() => {
     onLoadFn();
   }, []);
@@ -128,16 +120,6 @@ const Dashboard = () => {
           sx={{ display: "flex", alignItems: "flex-end" }}
         >
           <Toolbar>
-            <Button
-              color="third"
-              variant="contained"
-              startIcon={<LogoutIcon />}
-              onClick={handleLogout}
-              sx={{ marginRight: 3 }}
-            >
-              Logout
-            </Button>
-
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />

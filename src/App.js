@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./Components/Auth/Register";
 import Login from "./Components/Auth/Login";
 import Authorization from "./Components/Auth/Authorization";
@@ -10,13 +10,6 @@ import AddProduct from "./Components/AddProduct";
 import InventoryDetails from "./Pages/InventoryDetails";
 
 const App = () => {
-  // let dispatch = useDispatch();
-
-  // const item = localStorage.getItem("token");
-
-  // let token = JSON.parse(item)
-
-  // dispatch(addToken(token));
   return (
     <>
       <BrowserRouter>
@@ -26,10 +19,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/dash/" element={<Authorization />}>
-            <Route path="/dash/" element={<Dashboard />} />
-            <Route path="/dash/addproduct" element={<AddProduct />} />
-            <Route path="/dash/product" element={<Product />} />
-            <Route path="/dash/inventory" element={<InventoryDetails />} />
+            <Route index element={<Dashboard />} />
+            <Route path="addproduct" element={<AddProduct />} />
+            <Route path="product" element={<Product />} />
+            <Route path="inventory" element={<InventoryDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

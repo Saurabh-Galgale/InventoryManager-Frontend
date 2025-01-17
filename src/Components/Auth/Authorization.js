@@ -1,16 +1,15 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
-const Authorization = ({ children }) => {
+const Authorization = () => {
+  const token = localStorage.getItem("token");
 
-    const item = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
-    if (item == null || item == undefined || !item) {
-        return <Navigate to="/login" replace />;
-    }
-
-    return <Outlet />;
-}
+  return <Outlet />;
+};
 
 export default Authorization;

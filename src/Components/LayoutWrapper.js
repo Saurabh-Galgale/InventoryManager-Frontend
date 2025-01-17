@@ -74,7 +74,7 @@ const LayoutWrapper = (props) => {
               end={true}
               style={({ isActive }) => {
                 return {
-                  color: isActive ? "#9db2b2" : "#F2F2F2",
+                  color: isActive ? "#8d8daa" : "#F2F2F2",
                 };
               }}
               startIcon={item.icon}

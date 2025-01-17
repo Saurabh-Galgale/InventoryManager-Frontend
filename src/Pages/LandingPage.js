@@ -20,7 +20,21 @@ const LandingPage = () => {
             },
           }}
         >
-          Inventory Manager
+          Inventory
+          <Typography
+            ml={1}
+            color="#8d8daa"
+            sx={{
+              display: "inline",
+              typography: {
+                xs: "h4",
+                sm: "h4",
+                md: "h4",
+              },
+            }}
+          >
+            Manager
+          </Typography>
         </Typography>
         <Divider
           style={{ width: "80%" }}

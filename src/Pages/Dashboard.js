@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LayoutWrapper from "../Components/LayoutWrapper";
 import MenuList from "./MenuList";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Skeleton } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -143,7 +143,28 @@ const Dashboard = () => {
         </AppBar>
       </Box>
 
-      {!loading ? (
+      {loading ? (
+        <>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            {[...Array(15)].map((item) => {
+              return (
+                <Grid item sm={6} xs={12} lg={4}>
+                  <Skeleton
+                    variant="Item"
+                    animation="wave"
+                    component={Item}
+                    height={250}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </>
+      ) : (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {products &&
             products
@@ -180,15 +201,6 @@ const Dashboard = () => {
                 );
               })}
         </Grid>
-      ) : (
-        <Stack
-          width="100%"
-          height="100%"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <CircularProgress color="third" size="6rem" />
-        </Stack>
       )}
     </LayoutWrapper>
   );

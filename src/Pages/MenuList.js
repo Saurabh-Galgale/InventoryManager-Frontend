@@ -13,11 +13,11 @@ const MenuList = [
     path: "/dash/addproduct",
     icon: <AddShoppingCartIcon />,
   },
-  {
-    name: "Inventory Details",
-    path: "/dash/inventory",
-    icon: <StoreIcon />,
-  },
+  //   {
+  //     name: "Inventory Details",
+  //     path: "/dash/inventory",
+  //     icon: <StoreIcon />,
+  //   },
 ];
 
 export default MenuList;

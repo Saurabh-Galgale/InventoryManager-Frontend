@@ -65,6 +65,10 @@ const Dashboard = () => {
     onLoadFn();
   }, []);
 
+  if (true) {
+    return <h2>Work is under progress...</h2>;
+  }
+
   return (
     <LayoutWrapper menuList={MenuList}>
       {!loading ? (

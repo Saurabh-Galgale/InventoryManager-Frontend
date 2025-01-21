@@ -194,7 +194,15 @@ const Dashboard = () => {
                         Description: {item.description}
                       </Typography>
                       <Typography variant="h5">
-                        Updated: {item.updatedAt}
+                        Updated:{" "}
+                        {new Date(item.updatedAt).toLocaleString("en-IN", {
+                          month: "long",
+                          day: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}
                       </Typography>
                     </Item>
                   </Grid>

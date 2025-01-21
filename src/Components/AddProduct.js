@@ -188,10 +188,10 @@ let AddProduct = () => {
             value={formData.slogan}
           />
           <LoadingButton
-            variant="outlined"
+            variant="contained"
             loading={loading}
             fullWidth
-            color="secondary"
+            color="third"
             onClick={submit}
           >
             <Typography variant="h4">Add to inventory</Typography>

@@ -153,10 +153,10 @@ const Product = () => {
 
           <Grid item xs={12}>
             <LoadingButton
-              variant="outlined"
+              variant="contained"
               loading={loading}
               fullWidth
-              color="secondary"
+              color="third"
               onClick={submit}
             >
               <Typography variant="h4">Save changes</Typography>
@@ -167,7 +167,7 @@ const Product = () => {
             <Button variant="text" component={Link} to="/dash">
               <Typography
                 variant="h5"
-                color="third.dark"
+                color="third.main"
                 sx={{ textTransform: "none" }}
               >
                 Check out Inventory

@@ -156,7 +156,7 @@ let AddProduct = () => {
             value={formData.password}
           />
           <TextField
-            label="price"
+            label="price per item"
             name="price"
             color="third"
             fullWidth

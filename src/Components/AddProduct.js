@@ -27,8 +27,17 @@ let AddProduct = () => {
     description: "",
     image: "",
   });
+  const [errors, setErrors] = useState({
+    price: "",
+    quantity: "",
+  });
 
   let submit = async () => {
+    if (errors.price || errors.quantity) {
+      setLoading(false);
+      alert("Please correct the errors before submitting");
+      return;
+    }
     setLoading(true);
     if (
       formData.name == "" ||
@@ -66,9 +75,24 @@ let AddProduct = () => {
       });
   };
 
+  const validateNumberField = (name, value) => {
+    if (!/^\d*\.?\d*$/.test(value)) {
+      return `${
+        name.charAt(0).toUpperCase() + name.slice(1)
+      } must be a valid number`;
+    }
+    return "";
+  };
+
   let handleFormDataChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
+    const { name, value } = e.target;
+
+    if (name === "price" || name === "quantity") {
+      const error = validateNumberField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+      if (error) return; // Prevent invalid value from being set
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -126,6 +150,8 @@ let AddProduct = () => {
             fullWidth
             InputLabelProps={{ style: { fontSize: 20 } }}
             variant="outlined"
+            error={Boolean(errors.quantity)}
+            helperText={errors.quantity}
             onChange={(e) => handleFormDataChange(e)}
             value={formData.password}
           />
@@ -136,6 +162,8 @@ let AddProduct = () => {
             fullWidth
             InputLabelProps={{ style: { fontSize: 20 } }}
             variant="outlined"
+            error={Boolean(errors.price)}
+            helperText={errors.price}
             onChange={(e) => handleFormDataChange(e)}
             value={formData.orgName}
           />
